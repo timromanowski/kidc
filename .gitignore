@@ -20,3 +20,6 @@
 /vendor/bundle
 /public/assets/*
 .env
+.DS_Store
+.idea/
+app/.DS_Store

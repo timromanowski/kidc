@@ -1,0 +1,28 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    %title Kidc
+    %meta{:charset => "utf-8"}
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
+
+    = action_cable_meta_tag
+    %link{:href => "https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css", :rel => "stylesheet"}
+    / HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+    / WARNING: Respond.js doesn't work if you view the page via file://
+    /[if lt IE 9]
+      %script{:src => "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"}
+      %script{:src => "//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"}
+      %script{:src => "//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"}
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+  %body#page-top
+    = yield
+    = render 'partials/google_analytics'
+  = javascript_include_tag 'application', 'data-turbolinks-track' => true
+  = yield :javascript_includes
+
+
+
