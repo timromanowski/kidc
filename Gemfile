@@ -38,6 +38,7 @@ gem 'haml', '~> 5.0.1'
 
 # Use jQuery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-easing-rails'
 
 # Use Turbolinks. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'

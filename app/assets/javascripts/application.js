@@ -17,6 +17,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.easing
 //= require turbolinks
 //= require bootstrap/affix
 //= require bootstrap/alert
