@@ -24,11 +24,9 @@ services:
       - 'redis'
     build: .
     ports:
-      - '3000:3000'
-    volumes:
-      - '.:/kidc'
+      - '80:3000'
     env_file:
-      - '.env.proc'
+      - '.env.prod'
 
   sidekiq:
     depends_on:
@@ -39,7 +37,7 @@ services:
     volumes:
       - '.:/kidc'
     env_file:
-      - '.env.proc'
+      - '.env.prod'
 
   cable:
     depends_on:
@@ -51,7 +49,7 @@ services:
     volumes:
       - '.:/kidc'
     env_file:
-      - '.env.proc'
+      - '.env.prod'
 
 volumes:
   redis:
