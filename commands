@@ -4,7 +4,12 @@ eval $(docker-machine env -u)
 docker-compose -f docker-compose.prod.yml up -d db
 docker-compose -f docker-compose.prod.yml run --rm website rake db:create db:migrate
 
+<<<<<<< Local Changes
+docker-compose run --rm website rake db:create db:migrate
+
+=======
 docker-compose run --rm website rake db:reset db:migrate
+>>>>>>> External Changes
 
 docker-compose run --rm website bundle install rails generate paper_trail:install rake db:migrate
 
