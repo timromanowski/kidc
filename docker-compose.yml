@@ -18,7 +18,7 @@ services:
     volumes:
       - 'redis:/var/lib/redis/data'
 
-  website:
+  app:
     depends_on:
       - 'postgres'
       - 'redis'
@@ -27,6 +27,8 @@ services:
       - '3000:3000'
     volumes:
       - '.:/kidc'
+    volumes_from:
+      - box
     env_file:
       - '.env'
 
@@ -38,6 +40,8 @@ services:
     command: sidekiq -C config/sidekiq.yml.erb
     volumes:
       - '.:/kidc'
+    volumes_from:
+      - box
     env_file:
       - '.env'
 
@@ -50,8 +54,14 @@ services:
       - '28080:28080'
     volumes:
       - '.:/kidc'
+    volumes_from:
+      - box
     env_file:
       - '.env'
+  box:
+    image: busybox
+    volumes:
+      - /box
 
 volumes:
   redis:

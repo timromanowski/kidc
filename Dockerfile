@@ -14,7 +14,7 @@ FROM ruby:2.3-slim
 # The Docker hub is the standard place for you to find official
 # Docker images. Think of it like GitHub but for Docker images.
 
-MAINTAINER Nick Janetakis <nick.janetakis@gmail.com>
+MAINTAINER Tim Romanowski <tim.romanowski@gmail.com>
 # It is good practice to set a maintainer for all of your Docker
 # images. It's not necessary but it's a good habit.
 
@@ -65,6 +65,7 @@ COPY Gemfile Gemfile.lock ./
 # This is an advanced concept but it means that we'll be able to
 # cache all of our gems so that if we make an application code
 # change, it won't re-run bundle install unless a gem changed.
+
 
 RUN bundle install --binstubs
 # We want binstubs to be available so we can directly call sidekiq and

@@ -2,16 +2,16 @@ docker-machine create --driver=digitalocean --digitalocean-access-token=6435a64c
 eval $(docker-machine env kidc)
 eval $(docker-machine env -u)
 docker-compose -f docker-compose.prod.yml up -d db
-docker-compose -f docker-compose.prod.yml run --rm website rake db:create db:migrate
+docker-compose -f docker-compose.prod.yml run --rm app rake db:create db:migrate
 
 <<<<<<< Local Changes
-docker-compose run --rm website rake db:create db:migrate
+docker-compose run --rm app rake db:create db:migrate
 
 =======
-docker-compose run --rm website rake db:reset db:migrate
+docker-compose run --rm app rake db:reset db:migrate
 >>>>>>> External Changes
 
-docker-compose run --rm website bundle install rails generate paper_trail:install rake db:migrate
+docker-compose run --rm app bundle install rails generate paper_trail:install rake db:migrate
 
 # Stop all
 docker stop $(docker ps -a -q)
@@ -37,8 +37,8 @@ docker volume rm $(docker volume ls -f dangling=true -q)
 
         task  Initialize the database in a 2nd Docker-enabled terminal
         note  OSX / Windows users can skip the --user flag
-         run  docker-compose exec --user "$(id -u):$(id -g)" website rails db:reset
-         run  docker-compose exec --user "$(id -u):$(id -g)" website rails db:migrate
+         run  docker-compose exec --user "$(id -u):$(id -g)" app rails db:reset
+         run  docker-compose exec --user "$(id -u):$(id -g)" app rails db:migrate
 
         task  Visit the page in your browser
        visit  Running Docker natively? http://localhost:3000
