@@ -36,6 +36,9 @@ gem 'uglifier', '>= 1.3.0'
 #haml
 gem 'haml', '~> 5.0.1'
 
+#devise
+gem 'devise'
+
 # Use jQuery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-easing-rails'
