@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tasks
   devise_for :users, :skip => :registrations
   devise_for :parents, :children, :skip => :sessions
   root 'welcome#show'

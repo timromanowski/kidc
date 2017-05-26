@@ -19,7 +19,7 @@ MAINTAINER Tim Romanowski <tim.romanowski@gmail.com>
 # images. It's not necessary but it's a good habit.
 
 RUN apt-get update && apt-get install -qq -y --no-install-recommends \
-      build-essential nodejs libpq-dev
+      build-essential nodejs libpq-dev git
 # Ensure that our apt package list is updated and install a few
 # packages to ensure that we can compile assets (nodejs) and
 # communicate with PostgreSQL (libpq-dev).
@@ -66,7 +66,7 @@ COPY Gemfile Gemfile.lock ./
 # cache all of our gems so that if we make an application code
 # change, it won't re-run bundle install unless a gem changed.
 
-
+# ENV BUNDLE_PATH /box
 RUN bundle install --binstubs
 # We want binstubs to be available so we can directly call sidekiq and
 # potentially other binaries as command overrides without depending on

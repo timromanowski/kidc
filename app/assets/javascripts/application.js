@@ -31,4 +31,5 @@
 //= require bootstrap/scrollspy
 //= require bootstrap/tab
 //= require bootstrap/transition
+//= require recurring_select
 //= require_tree .

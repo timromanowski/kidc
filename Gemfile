@@ -39,6 +39,8 @@ gem 'haml', '~> 5.0.1'
 #devise
 gem 'devise'
 
+gem 'recurring_select'
+
 # Use jQuery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-easing-rails'
