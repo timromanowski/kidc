@@ -31,32 +31,32 @@ services:
     env_file:
       - '.env'
 
-  sidekiq:
-    depends_on:
-      - 'postgres'
-      - 'redis'
-    build: .
-    command: sidekiq -C config/sidekiq.yml.erb
-    volumes:
-      - '.:/kidc'
-    volumes_from:
-      - box
-    env_file:
-      - '.env'
-
-  cable:
-    depends_on:
-      - 'redis'
-    build: .
-    command: puma -p 28080 cable/config.ru
-    ports:
-      - '28080:28080'
-    volumes:
-      - '.:/kidc'
-    volumes_from:
-      - box
-    env_file:
-      - '.env'
+#  sidekiq:
+#    depends_on:
+#      - 'postgres'
+#      - 'redis'
+#    build: .
+#    command: cp /usr/local/bundle/Gemfile.lock $INSTALL_PATH/ && sidekiq -C config/sidekiq.yml.erb
+#    volumes:
+#      - '.:/kidc'
+#    volumes_from:
+#      - box
+#    env_file:
+#      - '.env'
+#
+#  cable:
+#    depends_on:
+#      - 'redis'
+#    build: .
+#    command: cp /usr/local/bundle/Gemfile.lock $INSTALL_PATH/ && puma -p 28080 cable/config.ru
+#    ports:
+#      - '28080:28080'
+#    volumes:
+#      - '.:/kidc'
+#    volumes_from:
+#      - box
+#    env_file:
+#      - '.env'
   box:
     image: busybox
     volumes:

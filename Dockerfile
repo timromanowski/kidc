@@ -1,4 +1,4 @@
-FROM ruby:2.3-slim
+FROM ruby:2.4
 # Docker images can start off with nothing, but it's extremely
 # common to pull in from a base image. In our case we're pulling
 # in from the slim version of the official Ruby 2.3 image.
@@ -19,7 +19,7 @@ MAINTAINER Tim Romanowski <tim.romanowski@gmail.com>
 # images. It's not necessary but it's a good habit.
 
 RUN apt-get update && apt-get install -qq -y --no-install-recommends \
-      build-essential nodejs libpq-dev git
+      build-essential nodejs libpq-dev git imagemagick
 # Ensure that our apt package list is updated and install a few
 # packages to ensure that we can compile assets (nodejs) and
 # communicate with PostgreSQL (libpq-dev).
@@ -49,6 +49,7 @@ WORKDIR $INSTALL_PATH
 # future commands from within this directory.
 
 COPY Gemfile Gemfile.lock ./
+
 # This is going to copy in the Gemfile and Gemfile.lock from our
 # work station at a path relative to the Dockerfile to the
 # kidc/ path inside of the Docker image.
@@ -66,8 +67,12 @@ COPY Gemfile Gemfile.lock ./
 # cache all of our gems so that if we make an application code
 # change, it won't re-run bundle install unless a gem changed.
 
+# skip installing gem documentation
+RUN echo 'gem: --no-rdoc --no-ri' >> "$HOME/.gemrc"
 # ENV BUNDLE_PATH /box
 RUN bundle install --binstubs
+RUN cp $INSTALL_PATH/Gemfile.lock /usr/local/bundle/
+ADD . $INSTALL_PATH
 # We want binstubs to be available so we can directly call sidekiq and
 # potentially other binaries as command overrides without depending on
 # bundle exec.
@@ -81,8 +86,7 @@ COPY . .
 # We can get away with using the . for the second argument because
 # this is how the unix command cp (copy) works. It stands for the
 # current directory.
-
-RUN bundle exec rake RAILS_ENV=production DATABASE_URL=postgresql://user:pass@127.0.0.1/dbname ACTION_CABLE_ALLOWED_REQUEST_ORIGINS=foo,bar SECRET_TOKEN=dummytoken assets:precompile
+RUN cp /usr/local/bundle/Gemfile.lock $INSTALL_PATH/ && bundle exec rake RAILS_ENV=production DATABASE_URL=postgresql://user:pass@127.0.0.1/dbname ACTION_CABLE_ALLOWED_REQUEST_ORIGINS=foo,bar SECRET_TOKEN=dummytoken assets:precompile
 # Provide a dummy DATABASE_URL and more to Rails so it can pre-compile
 # assets. The values do not need to be real, just valid syntax.
 #
@@ -95,7 +99,10 @@ VOLUME ["$INSTALL_PATH/public"]
 # This sets up a volume so that nginx can read in the assets from
 # the Rails Docker image without having to copy them to the Docker host.
 
-CMD puma -C config/puma.rb
+# Clean up APT when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+CMD cp /usr/local/bundle/Gemfile.lock $INSTALL_PATH/ && puma -C config/puma.rb
 # This is the command that's going to be ran by default if you run the
 # Docker image without any arguments.
 #

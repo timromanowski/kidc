@@ -39,7 +39,8 @@ gem 'haml', '~> 5.0.1'
 #devise
 gem 'devise'
 
-gem 'recurring_select'
+gem 'recurring_select',  git: 'https://github.com/sahild/recurring_select.git', branch: 'master'
+gem 'simple_calendar', '~> 2.0'
 
 # Use jQuery as the JavaScript library
 gem 'jquery-rails'

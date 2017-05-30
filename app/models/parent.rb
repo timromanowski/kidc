@@ -1,3 +1,4 @@
 class Parent < User
-  has_many :children
+  # Returns all children under this parent
+  has_many :children, :class_name => 'Child', :foreign_key => :parent_id
 end

@@ -4,7 +4,7 @@ class Task < ApplicationRecord
 
   serialize :recurring, Hash
 
-  has_many :event_exceptions
+  has_many :task_exceptions
 
   def recurring=(value)
     if RecurringSelect.is_valid_rule?(value)
@@ -22,7 +22,7 @@ class Task < ApplicationRecord
     schedule = IceCube::Schedule.new(start)
     schedule.add_recurrence_rule(rule)
 
-    event_exceptions.each do |exception|
+    task_exceptions.each do |exception|
       schedule.add_exception_time(exception.time)
     end
 

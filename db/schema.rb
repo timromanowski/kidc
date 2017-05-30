@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170526222450) do
+ActiveRecord::Schema.define(version: 20170527004715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "task_exceptions", force: :cascade do |t|
+    t.integer  "task_id"
+    t.datetime "time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_task_exceptions_on_task_id", using: :btree
+  end
 
   create_table "tasks", force: :cascade do |t|
     t.integer  "user_id"
@@ -43,4 +51,5 @@ ActiveRecord::Schema.define(version: 20170526222450) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "task_exceptions", "tasks"
 end
