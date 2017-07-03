@@ -4,6 +4,11 @@ eval $(docker-machine env -u)
 docker-compose -f docker-compose.prod.yml up -d db
 docker-compose -f docker-compose.prod.yml run --rm app rake db:create db:migrate
 
+cker-compose -f docker-compose.prod.yml up -d db
+
+# local DB 
+docker-compose -f run --rm app rake db:create db:migrate
+
 <<<<<<< Local Changes
 docker-compose run --rm app rake db:create db:migrate
 

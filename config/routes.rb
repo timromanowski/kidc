@@ -17,5 +17,7 @@ Rails.application.routes.draw do
     root 'children#show', as: :child_authenticated_root
   end
 
+  resource :visitors, :only => :create
+
   resources :tasks
 end

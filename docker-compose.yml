@@ -18,6 +18,8 @@ services:
     volumes:
       - 'redis:/var/lib/redis/data'
   app:
+    stdin_open: true
+    tty: true
     depends_on:
       - 'postgres'
       - 'redis'

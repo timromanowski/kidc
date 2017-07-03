@@ -2,4 +2,10 @@
   .container
     .row
       .col-md-8.col-md-offset-2
-        %h2.section-heading Coming Soon!
+        %h2.section-heading.email_txt Coming Soon! give us your email to learn more
+        #email_form
+          = form_for @visitor,  :remote => true do |f|
+            = f.text_field :email, :placeholder => "Email"
+            = f.submit "Sign up"
+
+
