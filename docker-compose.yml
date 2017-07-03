@@ -2,10 +2,11 @@ version: '2'
 
 services:
   postgres:
-    image: 'postgres:9.5'
+    restart: always
+    image: postgres
     environment:
-      POSTGRES_USER: 'kidc'
-      POSTGRES_PASSWORD: 'postGresKidcPas4Login'
+      POSTGRES_USER: kidc
+      POSTGRES_PASSWORD: kidc
     ports:
       - '5432:5432'
     volumes:
