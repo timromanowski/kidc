@@ -6,7 +6,7 @@ services:
     image: postgres
     environment:
       POSTGRES_USER: kidc
-      POSTGRES_PASSWORD: kidc
+      POSTGRES_PASSWORD: postGresKidcPas4Login2plus2Production
     ports:
       - '5432:5432'
     volumes:

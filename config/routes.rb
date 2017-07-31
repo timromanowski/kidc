@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users, skip: [:sessions, :registrations]
-  devise_for :parents, path: 'parent', controllers: { sessions: "parents/sessions" }
-  devise_for :children, path: 'child', controllers: { sessions: "children/sessions" }
+  # devise_for :users, skip: [:sessions, :registrations]
+  # devise_for :parents, path: 'parent', controllers: { sessions: "parents/sessions" }
+  # devise_for :children, path: 'child', controllers: { sessions: "children/sessions" }
+
+  devise_for :users, :controllers => { :sessions => 'sessions' }, :skip => :registrations
+  devise_for :parents, :children #, :skip => :sessions
 
   unauthenticated :users do
     root 'welcome#show', as: :unauthenticated_root
